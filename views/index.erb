@@ -1,3 +1,31 @@
 <h2>Welcome to Pizza-shop!</h2>
 <br>
+
+<div class="row">
+    <% @products.each do |p| %>
+    <div class="col-md-3">
+        <h4>
+            <%= p.title  %>
+        </h4>
+        <img src="<%= p.path_to_image %>" height="150" width="200">
+        <br />
+        <br />
+        <p>
+            <%= p.description %>
+            <br>
+            Размер: <%= p.size %>
+        </p>
+        <h4>
+            <%= p.price %> р.
+        </h4>
+        <% if p.is_best_offer == true %>
+            <h4>
+                Лучшее предложение!
+            </h4>
+        <% end %>
+    </div>
+    <% end %>
+</div>
+
+<br>
 <button class="btn btn-primary" onclick="something()">Поднажми!</button>
