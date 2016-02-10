@@ -1,3 +1,4 @@
+
 function something()
 {
     var x = window.localStorage.getItem('aaa');
@@ -7,4 +8,9 @@ function something()
     window.localStorage.setItem('aaa', x);
 
     alert(x);
+}
+
+function add_to_cart(id)
+{
+    alert('Вы заказали пиццу под номером ' + id);
 }
