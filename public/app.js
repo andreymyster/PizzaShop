@@ -34,6 +34,13 @@ function count_items()
 //функция апдейта контрола ввода для передачи строчки заказа через форму
 function update_orders_input()
 {
+    var orders = "Корзина (" + count_items() + ")";
+    $('#orders_button').val(orders);      // # - означает что мы обращаемся к элементу по id
+}
+
+//функция апдейта контрола ввода для передачи строчки заказа через форму
+function update_cart_button()
+{
     var orders = get_orders();
     $('#orders_input').val(orders);      // # - означает что мы обращаемся к элементу по id
 }
