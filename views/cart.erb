@@ -9,7 +9,7 @@
         <th>Количество</th>
     </tr>
 
-    <% sum = 0 %>
+    <% $sum = 0 %>
     <% @order.each do |key, value|%>
         <% @products.each do |product| %>
             <% if product.id == key %>
@@ -18,7 +18,7 @@
                     <td> <%= product.title %> </td>
                     <td> <%= product.price %> </td>
                     <td> <%= value %> </td>
-                    <% sum += product.price * value %>
+                    <% $sum += product.price * value %>
                 </tr>
             <% end %>
         <% end %>
@@ -27,7 +27,7 @@
 
 <br>
 
-<h4> Сумма: <%= sum %> </h4>
+<h4> Сумма: <%= $sum %> </h4>
 
 <br>
 
