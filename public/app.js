@@ -13,6 +13,7 @@ function add_to_cart(id)
     x = x * 1 + 1;
     window.localStorage.setItem(key, x);
     update_orders_input();
+    update_cart_button();
 }
 
 // функция возвращает кол-во элементов в заказе клиента
@@ -34,7 +35,7 @@ function count_items()
 //функция апдейта контрола ввода для передачи строчки заказа через форму
 function update_orders_input()
 {
-    var orders = "Корзина (" + count_items() + ")";
+    var orders = "Корзина (" + count_items() + ')';
     $('#orders_button').val(orders);      // # - означает что мы обращаемся к элементу по id
 }
 
@@ -55,7 +56,7 @@ function get_orders()
         if (key.indexOf("product_") == 0)    // функция indexOf возвращает номер в строке с которого начинается искомое сочетание
         {
             var value = localStorage[key];
-            sum = sum + key + "=" + value + ",";
+            sum = sum + key + "=" + value + " ";
         }
     }
     return sum;
