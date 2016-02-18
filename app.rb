@@ -39,14 +39,13 @@ end
 post '/cart' do
 	$order_products = params[:orders]
 
-	# если корзина пустая то вернуться к списку товаров
-	if $order_products.empty?
-		@products = Product.all
-		erb :index
-	end
-
 	# вызов ф-ии которая разделяет строку заказов
 	@items = split_order $order_products
+
+	# если корзина пустая
+	if @items.length == 0
+		return erb 'Корзина пуста'
+	end
 
 	# заменяем первый элемент массива id на строку из БД для этого id
 	@items.each do |item|
