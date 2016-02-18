@@ -33,11 +33,14 @@ end
 # обработчик строки заказа
 post '/cart' do
 	$order_products = params[:orders]
-	@products = Product.all
 	# вызов ф-ии которая разделяет строку заказов
-	@orders = split_order $order_products
-	# erb :cart
-	erb @orders
+	@items = split_order $order_products
+
+	# заменяем первый элемент массива id на строку из БД для этого id
+	@items.each do |item|
+		item[0] = Product.find(item[0])
+	end
+	erb :cart
 end
 
 # обработка страницы заказа
@@ -61,7 +64,7 @@ def split_order order_products
 	# удаляем лишнее из строки
 	order_products = order_products.delete 'product_'
 	order= []
-	# разделяем строку через пробелы и в хеш записываем значения вокруг знака =
+	# разделяем строку через пробелы и в массив записываем значения вокруг знака =
 	# 1=5 - 5 пицц типа 1
 	order_products.split.each do |item|
 		aa = item.split('=')

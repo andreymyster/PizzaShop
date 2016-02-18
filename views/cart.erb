@@ -10,18 +10,14 @@
     </tr>
 
     <% $sum = 0 %>
-    <% @order.each do |key, value|%>
-        <% @products.each do |product| %>
-            <% if product.id == key %>
-                <tr>
-                    <td> <%= product.id %> </td>
-                    <td> <%= product.title %> </td>
-                    <td> <%= product.price %> </td>
-                    <td> <%= value %> </td>
-                    <% $sum += product.price * value %>
-                </tr>
-            <% end %>
-        <% end %>
+    <% @items.each do |item|%>
+        <tr>
+            <td> <%= item[0].id %> </td>
+            <td> <%= item[0].title %> </td>
+            <td> <%= item[0].price %> </td>
+            <td> <%= item[1] %> </td>
+            <% $sum += item[0].price.to_i * item[1].to_i %>
+        </tr>
     <% end %>
 </table>
 
