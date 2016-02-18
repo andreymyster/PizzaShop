@@ -30,9 +30,21 @@ get '/order' do
 	erb :order
 end
 
+get '/orderlist' do
+	@OL = Order.all
+	erb :orderlist
+end
+
 # обработчик строки заказа
 post '/cart' do
 	$order_products = params[:orders]
+
+	# если корзина пустая то вернуться к списку товаров
+	if $order_products.empty?
+		@products = Product.all
+		erb :index
+	end
+
 	# вызов ф-ии которая разделяет строку заказов
 	@items = split_order $order_products
 
@@ -53,7 +65,7 @@ post '/order' do
 
 	# проверка - произошла ли запись в бд
 	if @ord.save
-		erb 'Спасибо за покупку!'
+		erb :final
 	else
 		@error = @ord.errors.full_messages.first
 		erb :order
@@ -64,11 +76,13 @@ def split_order order_products
 	# удаляем лишнее из строки
 	order_products = order_products.delete 'product_'
 	order= []
+
 	# разделяем строку через пробелы и в массив записываем значения вокруг знака =
 	# 1=5 - 5 пицц типа 1
 	order_products.split.each do |item|
 		aa = item.split('=')
 		order.push [aa[0], aa[1]]
 	end
+
 	order
 end
