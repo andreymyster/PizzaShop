@@ -61,7 +61,6 @@ post '/order' do
 	@ord = Order.new params[:order]
 	@ord.list_order = $order_products
 	@ord.sum = $sum
-	@ord.save
 
 	# проверка - произошла ли запись в бд
 	if @ord.save
