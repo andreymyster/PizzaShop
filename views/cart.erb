@@ -1,29 +1,31 @@
 <h3>Список покупок</h3>
 
-
-<table class="table table-striped">
-    <tr>
-        <th>#</th>
-        <th>Наименование</th>
-        <th>Цена</th>
-        <th>Количество</th>
-    </tr>
-
-    <% $sum = 0 %>
-    <% @items.each do |item|%>
+<div id="list_order">
+    <table class="table table-striped">
         <tr>
-            <td> <%= item[0].id %> </td>
-            <td> <%= item[0].title %> </td>
-            <td> <%= item[0].price %> </td>
-            <td> <%= item[1] %> </td>
-            <% $sum += item[0].price.to_i * item[1].to_i %>
+            <th>#</th>
+            <th>Наименование</th>
+            <th>Цена</th>
+            <th>Количество</th>
         </tr>
-    <% end %>
-</table>
 
-<h4> Сумма: <%= $sum %> </h4>
+        <% $sum = 0 %>
+        <% @items.each do |item|%>
+            <tr>
+                <td> <%= item[0].id %> </td>
+                <td> <%= item[0].title %> </td>
+                <td> <%= item[0].price %> </td>
+                <td> <%= item[1] %> </td>
+                <% $sum += item[0].price.to_i * item[1].to_i %>
+            </tr>
+        <% end %>
+    </table>
+
+    <h4> Сумма: <%= $sum %> </h4>
+</div>
 
 <br><br>
 
 <a class="btn btn-info btn-lg" href="/order" role="button">Оформить</a>
-<a class="btn btn-lg" href="/" role="button" onclick="clear_orders();">Очистить корзину</a>
+<!-- <a class="btn btn-lg" href="/cart" role="button" onclick="clear_orders();">Очистить корзину</a> -->
+<button class="btn btn-lg" onclick="clear_orders();">Отмена заказа</button>

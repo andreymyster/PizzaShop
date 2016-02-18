@@ -56,5 +56,8 @@ function get_orders()
 
 function clear_orders()
 {
+    $('#list_order').text('Корзина теперь пуста.');
     localStorage.clear();
+    update_orders_input();
+    update_cart_button();
 }
