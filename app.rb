@@ -32,27 +32,19 @@ end
 
 # обработчик строки заказа
 post '/cart' do
-	order_products = params[:orders]
-	# сохраняем переменную для записи в бд при оформлении
-	$OP = order_products
-	# удаляем лишнее из строки
-	order_products = order_products.delete 'product_'
-	@order={}
+	$order_products = params[:orders]
 	@products = Product.all
-	# разделяем строку через пробелы и в хеш записываем значения вокруг знака =
-	# 1=5 - 5 пицц типа 1
-	order_products.split.each do |item|
-	 	aa = item.split('=')
-		@order[aa[0].to_i] = aa[1].to_i
-	end
-	erb :cart
+	# вызов ф-ии которая разделяет строку заказов
+	@orders = split_order $order_products
+	# erb :cart
+	erb @orders
 end
 
 # обработка страницы заказа
 post '/order' do
 	# сохраняем переменные в БД
 	@ord = Order.new params[:order]
-	@ord.list_order = $OP
+	@ord.list_order = $order_products
 	@ord.sum = $sum
 	@ord.save
 
@@ -63,5 +55,17 @@ post '/order' do
 		@error = @ord.errors.full_messages.first
 		erb :order
 	end
+end
 
+def split_order order_products
+	# удаляем лишнее из строки
+	order_products = order_products.delete 'product_'
+	order= []
+	# разделяем строку через пробелы и в хеш записываем значения вокруг знака =
+	# 1=5 - 5 пицц типа 1
+	order_products.split.each do |item|
+		aa = item.split('=')
+		order.push [aa[0], aa[1]]
+	end
+	order
 end
