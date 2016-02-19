@@ -31,7 +31,8 @@ get '/order' do
 end
 
 get '/orderlist' do
-	@OL = Order.all
+	# выбрать все записи и отсортировать в обратном порядке
+	@OL = Order.all.order('id DESC')
 	erb :orderlist
 end
 
